@@ -27,5 +27,10 @@ export const useFlightSearch = () => {
     handleArrivalChange,
     handleDateChange,
     flightItinerary,
+    loading,
+    setLoading,
+    departure,
+    arrival,
+    date,
   }
 }
