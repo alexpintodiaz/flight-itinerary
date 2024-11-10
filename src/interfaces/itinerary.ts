@@ -1,6 +1,14 @@
-type AirportCode = 'BOG' | 'MDE' | 'BAQ' | 'BGA' | 'SMR' | 'CTG' | 'CLO' | 'EOH'
+export type AirportCode =
+  | 'BOG'
+  | 'MDE'
+  | 'BAQ'
+  | 'BGA'
+  | 'SMR'
+  | 'CTG'
+  | 'CLO'
+  | 'EOH'
 
-type DayOfWeek =
+export type DayOfWeek =
   | 'Lunes'
   | 'Martes'
   | 'Miércoles'
@@ -9,14 +17,15 @@ type DayOfWeek =
   | 'Sábado'
   | 'Domingo'
 
-interface Flight {
+export interface Flight {
   day: DayOfWeek
   origin: AirportCode
   destination: AirportCode
   departureTime: string
-  arrivalTime: string 
+  arrivalTime: string
   duration: number
   city: string
+  date?: string
 }
 
 export interface Airplane {
