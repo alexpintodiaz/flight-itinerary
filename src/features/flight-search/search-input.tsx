@@ -15,6 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
+import { AirportCode } from '@/interfaces/itinerary'
 
 const destinations = [
   {
@@ -57,11 +58,17 @@ type FlightType = 'arrival' | 'departure'
 
 interface SearchInputProps {
   flightType: FlightType
+  airportCode: AirportCode | null
+  setAirportCode: (value: AirportCode) => void
 }
 
-export const SearchInput: FC<SearchInputProps> = ({ flightType }) => {
+export const SearchInput: FC<SearchInputProps> = ({
+  flightType,
+  airportCode,
+  setAirportCode,
+}) => {
   const [open, setOpen] = useState(false)
-  const [value, setValue] = useState('')
+  // const [value, setValue] = useState('')
 
   const buttonPlaceholder = flightType === 'arrival' ? 'Destino' : 'Origen'
 
@@ -79,8 +86,8 @@ export const SearchInput: FC<SearchInputProps> = ({ flightType }) => {
             <PlaneTakeoff className='opacity-50' />
           )}
 
-          {value
-            ? destinations.find((dest) => dest.value === value)?.label
+          {airportCode
+            ? destinations.find((dest) => dest.value === airportCode)?.label
             : buttonPlaceholder}
         </Button>
       </PopoverTrigger>
@@ -103,14 +110,14 @@ export const SearchInput: FC<SearchInputProps> = ({ flightType }) => {
                   value={dest.value}
                   keywords={[dest.label]}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? '' : currentValue)
+                    setAirportCode(currentValue as AirportCode)
                     setOpen(false)
                   }}>
                   {dest.label}
                   <Check
                     className={cn(
                       'ml-auto',
-                      value === dest.value ? 'opacity-100' : 'opacity-0',
+                      airportCode === dest.value ? 'opacity-100' : 'opacity-0',
                     )}
                   />
                 </CommandItem>
