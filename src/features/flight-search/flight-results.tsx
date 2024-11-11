@@ -30,7 +30,7 @@ export const FlightResults: FC<FlightResultsProps> = ({ flights }) => {
         <div>
           <h3 className='mb-4'>
             No hemos encontrado un vuelo para el dia de tu busqueda, pero te
-            ofrecemos un vuelo en el proximo dia:
+            ofrecemos un vuelo en un proximo dia:
           </h3>
           {directFlights.nextDays.map((flight) => (
             <FlightCard flight={flight} key={flight.city} />
@@ -40,15 +40,17 @@ export const FlightResults: FC<FlightResultsProps> = ({ flights }) => {
 
       {hasConnectingFlights && (
         <div>
-          <h3 className='mb-4'>
-            No hemos encontrado un vuelo directo, pero te ofrecemos una
-            alternativa con escala:
+          <h3 className='mb-4 text-sm md:text-base'>
+            No hemos encontrado un vuelo directo, pero te ofrecemos alternativas
+            con escala:
           </h3>
           {connectingFlights.map((flightsGroup, index) => (
             <div key={index}>
-              {connectingFlights.length > 1 && <h4>Opción {index + 1}</h4>}
+              {connectingFlights.length > 1 && (
+                <h4 className='max-md:text-sm'>Opción {index + 1}</h4>
+              )}
 
-              <ul>
+              <ul className='pb-4'>
                 {flightsGroup.map((flight) => (
                   <FlightCard flight={flight} key={flight.city} />
                 ))}

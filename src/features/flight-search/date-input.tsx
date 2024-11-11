@@ -25,7 +25,7 @@ export const DateInput: FC<DateInputProps> = ({ date, setDate }) => {
         <Button
           variant={'outline'}
           className={cn(
-            'w-[280px] justify-start text-left font-normal',
+            'w-60 justify-start text-left font-normal',
             !date && 'text-muted-foreground',
           )}>
           <CalendarIcon />
@@ -46,6 +46,7 @@ export const DateInput: FC<DateInputProps> = ({ date, setDate }) => {
               setOpen(false)
             }
           }}
+          disabled={(date) => date <= new Date()}
           initialFocus
         />
       </PopoverContent>
