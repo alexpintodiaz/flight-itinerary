@@ -67,10 +67,16 @@ export function adjustDates(
   ]
 
   function parseCustomDate(dateStr: string): Date {
-    const [_, day, month, year] = dateStr.toLowerCase().split(/[\s,]+/)
-    const monthIndex = months.indexOf(month)
+    const parts = dateStr
+      .toLowerCase()
+      .split(/[,\s]+/)
+      .filter((part) => part.length > 0)
 
-    return new Date(`${year}-${monthIndex + 1}-${day}`)
+    const day = parseInt(parts[1])
+    const month = months.indexOf(parts[3])
+    const year = parseInt(parts[5])
+
+    return new Date(year, month, day)
   }
 
   const parsedStartDate = parseCustomDate(startDate)
@@ -81,7 +87,7 @@ export function adjustDates(
   }
 
   const formattedStartDate = startDate
-  const formattedEndDate = `${parsedEndDate.toLocaleString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`
+  const formattedEndDate = `${parsedEndDate.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`
 
   return { startDate: formattedStartDate, endDate: formattedEndDate }
 }

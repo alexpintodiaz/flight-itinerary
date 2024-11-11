@@ -60,17 +60,22 @@ interface SearchInputProps {
   flightType: FlightType
   airportCode: AirportCode | null
   setAirportCode: (value: AirportCode) => void
+  hideAirport: AirportCode | null
 }
 
 export const SearchInput: FC<SearchInputProps> = ({
   flightType,
   airportCode,
   setAirportCode,
+  hideAirport,
 }) => {
   const [open, setOpen] = useState(false)
-  // const [value, setValue] = useState('')
 
   const buttonPlaceholder = flightType === 'arrival' ? 'Destino' : 'Origen'
+
+  const filteredDestinations = destinations.filter(
+    (dest) => dest.value !== hideAirport,
+  )
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -79,7 +84,7 @@ export const SearchInput: FC<SearchInputProps> = ({
           variant='outline'
           role='combobox'
           aria-expanded={open}
-          className='w-[200px] justify-between'>
+          className='w-60 sm:w-[200px] justify-between'>
           {flightType === 'arrival' ? (
             <PlaneLanding className='opacity-50' />
           ) : (
@@ -104,7 +109,7 @@ export const SearchInput: FC<SearchInputProps> = ({
           <CommandList>
             <CommandEmpty>No se encuntran aeropuertos</CommandEmpty>
             <CommandGroup>
-              {destinations.map((dest) => (
+              {filteredDestinations.map((dest) => (
                 <CommandItem
                   key={dest.value}
                   value={dest.value}
@@ -116,7 +121,7 @@ export const SearchInput: FC<SearchInputProps> = ({
                   {dest.label}
                   <Check
                     className={cn(
-                      'ml-auto',
+                      'ml-auto text-[#EF4935]',
                       airportCode === dest.value ? 'opacity-100' : 'opacity-0',
                     )}
                   />
